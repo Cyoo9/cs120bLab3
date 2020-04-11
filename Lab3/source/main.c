@@ -14,10 +14,14 @@
 
 int main(void) {
     /* Insert DDR and PORT initializations */
-
+    DDRA = 0x00; PORTA = 0xFF;
+    DDRB = 0x00; PORTB = 0xFF;
+    DDRC = 0xFF; PORTC = 0x00;
+    unsigned char counter = 0x00;
     /* Insert your solution below */
     while (1) {
-
+	unsigned char i;
+	(i = 0x00; i < FF;
     }
     return 1;
 }
