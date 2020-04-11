@@ -1,4 +1,4 @@
-# Test file for "Lab3Partners name [none]:"
+# Test file for "Project name: Lab3Partners name [none]: Microcontroller [atmega1284]:"
 
 
 # commands.gdb provides the following functions for ease:
@@ -26,21 +26,33 @@
 echo ======================================================\n
 echo Running all tests..."\n\n
 
+# Example test:
 test "PINA: 0x00, PINB: 0x00 => PORTC: 0"
+# Set inputs
 setPINA 0x00
 setPINB 0x00
+# Continue for several ticks
 continue 2
-expectPORTC 0x00
-checkResult
-
-test "PINA: 0xFF, PINB: 0xFF => PORTC: 0x10"
-setPINA 0xFF
-setPINB 0xFF
-continue 2
-expectPORTC 0x10
+# Set expect values
+expectPORTC 0
+# Check pass/fail
 checkResult
 
 # Add tests below
+
+test "PINA: 0xFF, PINB: 0xFF => PORTC: 16"
+SETPINA 0xFF
+setPINB 0xFF
+continue 2
+expectPORTC 16
+checkResult
+
+test "PINA: 0xF0, PINB: 0X01 => PORTC: 5"
+setPINA 0xF0
+setPINB 0x01
+continue 2
+expectPORTC 5
+checkResult
 
 # Report on how many tests passed/tests ran
 set $passed=$tests-$failed

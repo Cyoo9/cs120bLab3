@@ -1,5 +1,5 @@
 /*	Author: tyoo002
- *  Partner(s) Name: Microcontroller [atmega1284]:
+ *  Partner(s) Name: Clock Frequency [8000000]:
  *	Lab Section:
  *	Assignment: Lab #  Exercise #
  *	Exercise Description: [optional - include for your own benefit]
