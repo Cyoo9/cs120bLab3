@@ -11,22 +11,26 @@
 #ifdef _SIMULATE_
 #include "simAVRHeader.h"
 #endif
+unsigned char SetBit(unsigned char x, unsigned char k, unsigned char b) {
+   return (b ?  (x | (0x01 << k))  :  (x & ~(0x01 << k)) );
+}
 
 int main(void) {
     /* Insert DDR and PORT initializations */
-    DDRA = 0x00; PORTA = 0xFF;
-    DDRB = 0xFF; PORTB = 0x00;
-    DDRC = 0xFF; PORTC = 0x00;
-        
-    unsigned char upperA;
-    unsigned char lowerA;
+    DDRD = 0x00; PORTD = 0xFF;
+    DDRB = 0xFE; PORTB = 0x00;
+	
+    unsigned char temp;
     /* Insert your solution below */
     while(1) {
+	temp = PINB & 0x01;
+	if(PIND + temp >= 70) {
+		SetBit(PORTB, 1, 1);
+	}
+	else if((PIND + temp > 5) && (PIND + temp < 70)) {
+		SetBit(PORTB, 2, 1);
+	}
 	
-	upperA = PINA & 0xF0;
-	lowerA = PINA & 0x0F;
-	PORTB = upperA >> 4;
-	PORTC = lowerA << 4;	
     }
     return 0;
 }
