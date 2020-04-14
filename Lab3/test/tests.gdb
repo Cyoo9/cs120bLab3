@@ -47,6 +47,13 @@ continue 2
 expectPORTB 0x04
 checkResult
 
+test "weight = 70" 
+setPIND 0x23
+setPINB 0x00
+continue 2
+expectPORTB 0x02
+checkResult
+
 set $passed=$tests-$failed
 eval "shell echo Passed %d/%d tests.\n",$passed,$tests
 oecho ======================================================\n

@@ -21,7 +21,7 @@ int main(void) {
     /* Insert your solution below */
     while(1) {
 
-        weight = PIND + (PINB & 0x01);
+        weight = 2*PIND + (PINB & 0x01);
 
         if(weight >= 70) {
                 PORTB = 0x02;
