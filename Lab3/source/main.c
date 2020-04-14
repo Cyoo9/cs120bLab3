@@ -16,24 +16,25 @@ int main(void) {
     /* Insert DDR and PORT initializations */
     DDRD = 0x00; PORTD = 0xFF;
     DDRB = 0xFE; PORTB = 0x00;
-    
+
     unsigned short weight;
     /* Insert your solution below */
     while(1) {
 
-	weight = PIND + PINB;
+        weight = PIND + (PINB & 0x01);
 
-	if(weight >= 70) {
-		PORTB = 0x02 + (PINB & 0x01);
-		
-	}
-	else if(weight > 5) {
-		PORTB = 0x04 + (PINB & 0x01);
-	}
+        if(weight >= 70) {
+                PORTB = 0x02;
+        }
+        else if(weight > 5 && weight < 70) {
+                PORTB = 0x04;
+        }
 	else {
-		PORTB = PINB & 0x01;
+		PORTB = 0x00;
 	}
-	
+
+
     }
     return 0;
 }
+

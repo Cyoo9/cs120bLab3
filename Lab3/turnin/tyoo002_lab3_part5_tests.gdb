@@ -1,39 +1,52 @@
-/*	Author: tyoo002
- *  Partner(s) Name: Clock Frequency [8000000]:
- *	Lab Section:
- *	Assignment: Lab #  Exercise #
- *	Exercise Description: [optional - include for your own benefit]
- *
- *	I acknowledge all content contained herein, excluding template or example
- *	code, is my own original work.
- */
-#include <avr/io.h>
-#ifdef _SIMULATE_
-#include "simAVRHeader.h"
-#endif
+# Test file for "Project name: Lab3Partners name [none]: Microcontroller [atmega1284]:"
 
-int main(void) {
-    /* Insert DDR and PORT initializations */
-    DDRD = 0x00; PORTD = 0xFF;
-    DDRB = 0xFE; PORTB = 0x00;
-    
-    unsigned short weight;
-    /* Insert your solution below */
-    while(1) {
 
-	weight = PIND + PINB;
+# commands.gdb provides the following functions for ease:
+#   test "<message>"
+#       Where <message> is the message to print. Must call this at the beginning of every test
+#       Example: test "PINA: 0x00 => expect PORTC: 0x01"
+#   checkResult
+#       Verify if the test passed or failed. Prints "passed." or "failed." accordingly, 
+#       Must call this at the end of every test.
+#   expectPORTx <val>
+#       With x as the port (A,B,C,D)
+#       The value the port is epected to have. If not it will print the erroneous actual value
+#   setPINx <val>
+#       With x as the port or pin (A,B,C,D)
+#       The value to set the pin to (can be decimal or hexidecimal
+#       Example: setPINA 0x01
+#   printPORTx f OR printPINx f 
+#       With x as the port or pin (A,B,C,D)
+#       With f as a format option which can be: [d] decimal, [x] hexadecmial (default), [t] binary 
+#       Example: printPORTC d
+#   printDDRx
+#       With x as the DDR (A,B,C,D)
+#       Example: printDDRB
 
-	if(weight >= 70) {
-		PORTB = 0x02 + (PINB & 0x01);
-		
-	}
-	else if(weight > 5) {
-		PORTB = 0x04 + (PINB & 0x01);
-	}
-	else {
-		PORTB = PINB & 0x01;
-	}
-	
-    }
-    return 0;
-}
+echo ======================================================\n
+echo Running all tests..."\n\n
+
+test "PINA: 0xFF, PINB: 0x01 => PORTB: 0x02"
+setPIND 0xFF
+setPINB 0x01
+continue 2
+expectPORTB 0x02
+checkResult
+
+test "PINA: 0x00, PINB: 0x00 => PORTB: 0x00"
+setPIND 0x00
+setPINB 0x00
+continue 2
+expectPORTB 0x00
+checkResult
+
+test "PINA: 0x08, PINB: 0x01 => PORTB: 0x04"
+setPIND 0x05
+setPINB 0x01
+continue 2
+expectPORTB 0x04
+checkResult
+
+set $passed=$tests-$failed
+eval "shell echo Passed %d/%d tests.\n",$passed,$tests
+oecho ======================================================\n
