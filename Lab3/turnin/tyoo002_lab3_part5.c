@@ -32,8 +32,6 @@ int main(void) {
 	else {
 		PORTB = 0x00;
 	}
-
-
     }
     return 0;
 }
